@@ -29,47 +29,43 @@ class MinHeap {
   }
 
   pop() {
+    const returnValue = this.heap[1];
+
     if (this.heap.length <= 1) {
       return 0;
-    }
-    const returnValue = this.heap[1];
-    if (this.heap.length === 2) {
+    } else if (this.heap.length === 2) {
       return this.heap.pop();
-    }
-    this.heap[1] = this.heap.pop();
+    } else {
+      this.heap[1] = this.heap.pop();
 
-    let currentIndex = 1;
+      let currentIndex = 1;
+      let leftIndex = 2;
+      let rightIndex = 3;
 
-    while (true) {
-      let leftIndex = 2 * currentIndex;
-      let rightIndex = 2 * currentIndex + 1;
-      let smallest = currentIndex;
-
-      if (
-        leftIndex < this.heap.length &&
-        this.heap[leftIndex] < this.heap[smallest]
+      while (
+        (leftIndex < this.heap.length &&
+          this.heap[currentIndex] > this.heap[leftIndex]) ||
+        (rightIndex < this.heap.length &&
+          this.heap[currentIndex] > this.heap[rightIndex])
       ) {
-        smallest = leftIndex;
-      }
-
-      if (
-        rightIndex < this.heap.length &&
-        this.heap[rightIndex] < this.heap[smallest]
-      ) {
-        smallest = rightIndex;
-      }
-
-      if (smallest !== currentIndex) {
-        [this.heap[currentIndex], this.heap[smallest]] = [
-          this.heap[smallest],
-          this.heap[currentIndex],
-        ];
-        currentIndex = smallest;
-      } else {
-        break;
+        if (
+          rightIndex < this.heap.length &&
+          this.heap[rightIndex] < this.heap[leftIndex]
+        ) {
+          const temp = this.heap[currentIndex];
+          this.heap[currentIndex] = this.heap[rightIndex];
+          this.heap[rightIndex] = temp;
+          currentIndex = rightIndex;
+        } else if (leftIndex < this.heap.length) {
+          const temp = this.heap[currentIndex];
+          this.heap[currentIndex] = this.heap[leftIndex];
+          this.heap[leftIndex] = temp;
+          currentIndex = leftIndex;
+        }
+        leftIndex = 2 * currentIndex;
+        rightIndex = 2 * currentIndex + 1;
       }
     }
-
     return returnValue;
   }
 }
