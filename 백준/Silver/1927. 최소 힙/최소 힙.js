@@ -51,7 +51,7 @@ class MinHeap {
           leftIndex < this.heap.length &&
           this.heap[smallest] > this.heap[leftIndex]
         ) {
-          // length 범위에 leftIndex 범위에 들어가고, 값이 root보다 큰 경우
+          // length 범위에 leftIndex가 들어가고, 값이 root보다 큰 경우
           smallest = leftIndex;
         }
         if (
