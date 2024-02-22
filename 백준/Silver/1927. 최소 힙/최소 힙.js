@@ -2,11 +2,11 @@ const input = require("fs")
   .readFileSync(process.platform === "linux" ? "/dev/stdin" : "./input.txt")
   .toString()
   .trim()
-  .split("\n");
+  .split("\n")
+  .map((v) => Number(v));
 
 const count = input.shift();
 const answer = [];
-const map = input.map((v) => Number(v));
 
 class MinHeap {
   constructor() {
@@ -29,54 +29,66 @@ class MinHeap {
   }
 
   pop() {
-    const returnValue = this.heap[1];
-
     if (this.heap.length <= 1) {
+      // heap에 null만 있는 경우
       return 0;
     } else if (this.heap.length === 2) {
+      // null + root만 존재하는 경우
+      // 마지막 값 리턴
       return this.heap.pop();
     } else {
+      // heap의 길이가 2 이상인 경우
+      const returnValue = this.heap[1];
       this.heap[1] = this.heap.pop();
 
-      let currentIndex = 1;
-      let leftIndex = 2;
-      let rightIndex = 3;
+      let currentIndex = 1; // null로 heap 생성했기때문에 1부터 시작.
 
-      while (
-        (leftIndex < this.heap.length &&
-          this.heap[currentIndex] > this.heap[leftIndex]) ||
-        (rightIndex < this.heap.length &&
-          this.heap[currentIndex] > this.heap[rightIndex])
-      ) {
+      while (true) {
+        let leftIndex = 2 * currentIndex;
+        let rightIndex = 2 * currentIndex + 1;
+        let smallest = currentIndex;
+        if (
+          leftIndex < this.heap.length &&
+          this.heap[smallest] > this.heap[leftIndex]
+        ) {
+          // length 범위에 leftIndex 범위에 들어가고, 값이 root보다 큰 경우
+          smallest = leftIndex;
+        }
         if (
           rightIndex < this.heap.length &&
-          this.heap[rightIndex] < this.heap[leftIndex]
+          this.heap[smallest] > this.heap[rightIndex]
         ) {
-          const temp = this.heap[currentIndex];
-          this.heap[currentIndex] = this.heap[rightIndex];
-          this.heap[rightIndex] = temp;
-          currentIndex = rightIndex;
-        } else if (leftIndex < this.heap.length) {
-          const temp = this.heap[currentIndex];
-          this.heap[currentIndex] = this.heap[leftIndex];
-          this.heap[leftIndex] = temp;
-          currentIndex = leftIndex;
+          smallest = rightIndex;
         }
-        leftIndex = 2 * currentIndex;
-        rightIndex = 2 * currentIndex + 1;
+
+        if (smallest !== currentIndex) {
+          this.swap(smallest, currentIndex);
+          currentIndex = smallest;
+        } else {
+          break;
+        }
       }
+
+      return returnValue;
     }
-    return returnValue;
+  }
+
+  // 바꾸기 위한 함수
+  swap(before, after) {
+    const temp = this.heap[before];
+    this.heap[before] = this.heap[after];
+    this.heap[after] = temp;
   }
 }
 
-const heap = new MinHeap();
+const minHeap = new MinHeap();
 
-for (const value of map) {
+for (const value of input) {
   if (value === 0) {
-    answer.push(heap.pop());
+    answer.push(minHeap.pop());
   } else {
-    heap.push(value);
+    minHeap.push(value);
   }
 }
+
 console.log(answer.join("\n"));
