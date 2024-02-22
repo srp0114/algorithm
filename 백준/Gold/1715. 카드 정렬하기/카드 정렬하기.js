@@ -30,9 +30,7 @@ class MinHeap {
   pop() {
     if (this.heap.length === 1) {
       return this.heap.pop();
-    } else if (this.heap.length === 0) {
-      return 0;
-    }
+    } 
 
     const returnValue = this.heap[0];
     this.heap[0] = this.heap.pop();
