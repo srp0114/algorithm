@@ -1,3 +1,5 @@
+// 10816 - 숫자 카드 2
+
 const input = require("fs")
   .readFileSync(process.platform === "linux" ? "/dev/stdin" : "./input.txt")
   .toString()
@@ -6,10 +8,7 @@ const input = require("fs")
 
 const N = Number(input[0]);
 const M = Number(input[2]);
-const MyCard = input[1]
-  .split(" ")
-  .map(Number)
-  .sort((a, b) => a - b);
+const MyCard = input[1].split(" ").map(Number);
 const FindCard = input[3].split(" ").map(Number);
 let answer = [];
 const map = new Map();
