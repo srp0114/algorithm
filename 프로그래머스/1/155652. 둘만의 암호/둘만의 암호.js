@@ -1,26 +1,15 @@
 function solution(s, skip, index) {
-    let answer = '';
-    const skipArr = new Set(skip);
-
-    const fullAlphabet = Array.from({length: 26}, (_, i) => String.fromCharCode(i + 97));
-    let effectiveAlphabet = fullAlphabet.filter(ch => !skipArr.has(ch));
-
-    for (let ch of s) {
-        if (skipArr.has(ch)) {
-            answer += ch;
-        } else {
-            let currentIndex = effectiveAlphabet.indexOf(ch);
-            if (currentIndex !== -1) {
-                let newIndex = currentIndex;
-                for (let i = 0; i < index; i++) {
-                    newIndex = (newIndex + 1) % effectiveAlphabet.length;
-                }
-                answer += effectiveAlphabet[newIndex];
-            } else {
-                answer += ch;
-            }
-        }
+    var answer = '';
+    const skipArr = skip.split("");
+    
+    const ASCII = Array.from({length:26}, (_, i) => String.fromCharCode(i + 97));
+    let skipASCII = ASCII.filter(ch => !skipArr.includes(ch));
+    
+    for(const str of s) {
+        let idx = skipASCII.indexOf(str);
+        let moveIdx = (idx + index) % skipASCII.length;
+        answer += skipASCII[moveIdx];
     }
-
+    
     return answer;
 }
