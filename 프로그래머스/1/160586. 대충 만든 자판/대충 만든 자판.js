@@ -15,13 +15,16 @@ function solution(keymap, targets) {
     
      targets.forEach(target => {
         let sum = 0;
-        for (let ch of target) {
-            if (!map.has(ch)) {
+        let ch = target.split("");
+         
+         ch.map((val) => {
+            if (!map.has(val)) {
                 sum = -1; 
-                break;
+                console.log(sum)
             }
-            sum += map.get(ch);
-        }
+            sum += map.get(val);  
+         })
+         
         answer.push(sum);
     });
     
