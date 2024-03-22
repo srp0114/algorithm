@@ -6,16 +6,16 @@ function solution(board) {
     let xCount = 0;
     let oBingo = false;
     let xBingo = false;
-    
-    map.map((row, i) => {
-        row.map((cell, j) => {
-            if(cell === "O") oCount++;
-            else if(cell === "X") xCount++;
-        })
         
-        if (map[i].every(cell => cell === 'O') || map.every(row => row[i] === 'O')) oBingo = true;
-        if (map[i].every(cell => cell === 'X') || map.every(row => row[i] === 'X')) xBingo = true;
-    })
+    for(let i = 0; i < 3; i++) {
+        map[i].forEach(cell => {
+            if (cell === 'O') oCount++;
+            if (cell === 'X') xCount++;
+        });
+        
+        if (map[i].every(cell => cell === "O") || map.every(row => row[i] === "O")) oBingo = true;
+        if (map[i].every(cell => cell === "X") || map.every(row => row[i] === "X")) xBingo = true;
+    }
     
     if ((map[0][0] === 'O' && map[1][1] === 'O' && map[2][2] === 'O') ||
         (map[0][2] === 'O' && map[1][1] === 'O' && map[2][0] === 'O')) {
