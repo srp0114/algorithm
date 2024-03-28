@@ -3,19 +3,17 @@ const input = require("fs")
   .toString()
   .trim();
 
-const sugar = parseInt(input);
+const sugar = Number(input);
 let bag = -1;
+let five = Math.floor(sugar / 5);
 
-if (sugar % 5 === 0) {
-  bag = sugar / 5;
-} else {
-  let numFive = Math.floor(sugar / 5);
-  for (let i = numFive; i >= 0; i--) {
-    let remain = sugar - i * 5;
-    if (remain % 3 === 0) {
-      bag = i + remain / 3;
-      break;
-    }
+while (five >= 0) {
+  const remain = sugar - five * 5;
+  if (remain % 3 === 0) {
+    bag = remain / 3 + five;
+    break;
+  } else {
+    five -= 1;
   }
 }
 
