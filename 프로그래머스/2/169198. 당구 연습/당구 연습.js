@@ -4,11 +4,10 @@ function solution(m, n, startX, startY, balls) {
                [startX, 2*n - startY], [startX, -startY]];
     
     for(const ball of balls) {
-        let maxValue = Infinity;
-
+        let minCompare = []; // 최솟값 찾기 위한 배열
         let [ballX, ballY] = ball;
         
-        for(let i=0; i<4; i++) {
+        for(let i = 0; i < 4; i++) {
             let [x, y] = d[i];
             if(x === ballX) {
                 const maxY = Math.max(startY, y);
@@ -23,10 +22,11 @@ function solution(m, n, startX, startY, balls) {
                     continue;
             }
             
-            const calc = (x-ballX) ** 2 + (y-ballY) ** 2;             
-            maxValue = Math.min(maxValue, calc);
+            const distance = (x - ballX) ** 2 + (y - ballY) ** 2;             
+            minCompare.push(distance);
         }
-            answer.push(maxValue);
+        
+        answer.push(Math.min(...minCompare));
     }
     
     return answer;   
