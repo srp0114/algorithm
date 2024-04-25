@@ -6,19 +6,11 @@ function solution(number, limit, power) {
         
         for(let j = 1; j <= Math.sqrt(i); j++) {
             if (i%j === 0) {
-                if (i/j === j) {
-                    count += 1;
-                } else {
-                    count += 2;
-                }
+                i / j === j ? count += 1 : count += 2;
             }
         }
         
-        if(count > limit) {
-            result += power;
-        } else {
-            result += count;
-        }
+        count > limit ? result += power : result += count;
     }
     
     return result;
