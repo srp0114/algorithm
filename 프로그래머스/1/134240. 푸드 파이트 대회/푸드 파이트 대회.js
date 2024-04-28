@@ -10,15 +10,6 @@ function solution(food) {
             result.push(i);
         }
     }
-    
-    result.push(0);
-    
-    for(let i = food.length-1; i >= 1; i--) {
-        for(let j = 0; j < food[i] / 2; j++) {
-            result.push(i);
-        }
-    }
-    
-    
-    return result.join("")
+        
+    return result.join("") + "0" + result.reverse().join("")
 }
