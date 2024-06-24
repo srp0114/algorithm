@@ -1,12 +1,8 @@
 function solution(n, lost, reserve) {
-    let count = n - lost.length;
-    let realLost=lost.filter((l)=>!reserve.includes(l));
-    let realReserve=reserve.filter((r)=>!lost.includes(r));
-    count += lost.length - realLost.length;
-    
-    realLost.sort((a, b) => a - b);
-    
-    
+    let realLost = lost.filter((l) => !reserve.includes(l)).sort((a, b) => a - b);
+    let realReserve = reserve.filter((r) => !lost.includes(r));
+    let count = n - realLost.length;
+        
     realLost.map((v) => {
         if(realReserve.includes(v-1)) {
             realReserve.splice(realReserve.indexOf(v-1), 1);
