@@ -1,18 +1,14 @@
 function solution(n) {
-  let answer = [];
-  
-  function isPrime (n) {
-    for(let num of answer) {
-      if(num > Math.sqrt(n)) return true
-      if(Number.isInteger(n/num)) return false
+    const arr = new Array(n+1).fill(true);
+    arr[0] = arr[1] = false;
+    
+    for(let i = 2; i*i <= n; i++) {
+        if(arr[i]) {
+            for(let j = i*i; j <= n; j += i) {
+                arr[j] = false;
+            }
+        }
     }
-    return true
-  }
-  
-  for(let i = 2; i <= n; i++) {
-      if(!i%2) continue
-      if(isPrime(i)) answer.push(i)
-  }
-  
-  return answer.length;
+    
+    return arr.filter(e => e === true).length
 }
