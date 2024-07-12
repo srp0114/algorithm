@@ -5,10 +5,11 @@ function solution(answers) {
     let high = [];
 
     const score = answers.reduce((acc, val, idx) => {
-    if(math1[idx%math1.length] === val) acc[0] += 1;
-    if(math2[idx%math2.length] === val) acc[1] += 1;
-    if(math3[idx%math3.length] === val) acc[2] += 1; 
-    return acc;
+        if(math1[idx%math1.length] === val) acc[0] += 1;
+        if(math2[idx%math2.length] === val) acc[1] += 1;
+        if(math3[idx%math3.length] === val) acc[2] += 1; 
+        
+        return acc;
     }, [0,0,0])
 
     let max = Math.max(...score);
