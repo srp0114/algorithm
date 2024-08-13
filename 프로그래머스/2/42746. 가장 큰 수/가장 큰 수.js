@@ -3,18 +3,18 @@ function solution(numbers) {
   let result = "";
 
   numbers.map((v) => {
-    const firstDigit = v.toString()[0];
-    num[firstDigit] = num[firstDigit] || [];
-    num[firstDigit].push(v);
+    const firstNum = v.toString()[0];
+    num[firstNum] = num[firstNum] || [];
+    num[firstNum].push(v);
   });
 
   for (let i = 9; i >= 0; i--) {
     if (num[i] !== undefined) {
       if (num[i].length > 1) {
         num[i].sort((a, b) => {
-          const strA = a.toString();
-          const strB = b.toString();
-          return (strB + strA) - (strA + strB);
+          let strA = a.toString();
+          let strB = b.toString();
+          return (strB + strA).localeCompare(strA + strB);
         });
       }
       result += num[i].join("");
